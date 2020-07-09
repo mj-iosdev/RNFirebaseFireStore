@@ -22,6 +22,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./src/screens/LoginScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import StudentListScreen from "./src/screens/StudentListScreen";
+import TeacherListScreen from "./src/screens/TeacherListScreen";
+import ClassListScreen from "./src/screens/ClassListScreen";
+import SubjectListScreen from "./src/screens/SubjectListScreen";
+import AddClassScreen from "./src/screens/AddClassScreen";
 
 const Stack = createStackNavigator();
 
@@ -59,6 +64,20 @@ const App = () => {
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
           <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+          <Stack.Screen
+            name="StudentListScreen"
+            component={StudentListScreen}
+          />
+          <Stack.Screen
+            name="TeacherListScreen"
+            component={TeacherListScreen}
+          />
+          <Stack.Screen name="ClassListScreen" component={ClassListScreen} />
+          <Stack.Screen
+            name="SubjectListScreen"
+            component={SubjectListScreen}
+          />
+          <Stack.Screen name="AddClassScreen" component={AddClassScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

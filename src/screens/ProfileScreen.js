@@ -14,6 +14,9 @@ import {
   Button,
   Text,
   Icon,
+  List,
+  Card,
+  CardItem,
 } from "native-base";
 import { StyleSheet } from "react-native";
 import { signOutUser, getCurrentUser } from "../service/FireAuthHelper";
@@ -57,8 +60,51 @@ const ProfileScreen = ({ navigation }) => {
         </Right>
       </Header>
 
-      <Content>
-        <Text>Your Email id = {user ? user.email : ""}</Text>
+      <Content padder>
+        <Card>
+          <CardItem
+            header
+            button
+            onPress={() => navigation.navigate("StudentListScreen")}
+          >
+            <Body>
+              <Text>Students</Text>
+            </Body>
+          </CardItem>
+        </Card>
+        <Card>
+          <CardItem
+            header
+            button
+            onPress={() => navigation.navigate("TeacherListScreen")}
+          >
+            <Body>
+              <Text>Teachers</Text>
+            </Body>
+          </CardItem>
+        </Card>
+        <Card>
+          <CardItem
+            header
+            button
+            onPress={() => navigation.navigate("ClassListScreen")}
+          >
+            <Body>
+              <Text>Classes</Text>
+            </Body>
+          </CardItem>
+        </Card>
+        <Card>
+          <CardItem
+            header
+            button
+            onPress={() => navigation.navigate("SubjectListScreen")}
+          >
+            <Body>
+              <Text>Subjects</Text>
+            </Body>
+          </CardItem>
+        </Card>
       </Content>
     </Container>
   );
