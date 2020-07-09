@@ -27,6 +27,7 @@ import TeacherListScreen from "./src/screens/TeacherListScreen";
 import ClassListScreen from "./src/screens/ClassListScreen";
 import SubjectListScreen from "./src/screens/SubjectListScreen";
 import AddClassScreen from "./src/screens/AddClassScreen";
+import AddSubjectScreen from "./src/screens/AddSubjectScreen";
 
 const Stack = createStackNavigator();
 
@@ -78,6 +79,7 @@ const App = () => {
             component={SubjectListScreen}
           />
           <Stack.Screen name="AddClassScreen" component={AddClassScreen} />
+          <Stack.Screen name="AddSubjectScreen" component={AddSubjectScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
