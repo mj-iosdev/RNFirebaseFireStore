@@ -35,7 +35,7 @@ const AddClassScreen = ({ navigation, route }) => {
             alert(error);
           });
       } else {
-        addRecord(CLASS, { class_name: className })
+        addRecord(CLASS, { class_name: className, order: parseInt(className) })
           .then((snapshot) => {
             navigation.goBack();
           })

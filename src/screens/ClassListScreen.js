@@ -20,12 +20,17 @@ import {
   View,
 } from "native-base";
 import { CLASS } from "../constants/index";
-import { getAllRecord } from "../service/FireStoreHelper";
+import {
+  getRecordAll,
+  deleteRecord,
+  getRecordWithQuery,
+} from "../service/FireStoreHelper";
+
 import { FlatList } from "react-native-gesture-handler";
-import { deleteRecord } from "../service/FireStoreHelper";
 
 const ClassListScreen = ({ navigation }) => {
   const [allClasses, setAllClasses] = useState([]);
+  const [lastVisibleClass, setLastVisibleClass] = useState(null);
 
   const addNewClass = () => {
     navigation.navigate("AddClassScreen", { mode: "add" });
@@ -46,19 +51,27 @@ const ClassListScreen = ({ navigation }) => {
       });
   };
 
-  useEffect(() => {
-    getAllRecord(CLASS)
+  const getClasses = () => {
+    console.log("getClasses");
+    getRecordWithQuery(CLASS, null, ["order"], lastVisibleClass, 10)
       .then((querySnapshot) => {
-        classes = [];
+        classes = allClasses;
+        setLastVisibleClass(querySnapshot.docs[querySnapshot.docs.length - 1]);
 
-        querySnapshot.forEach((documentSnapshot) => {
-          classes.push(documentSnapshot.data());
-        });
+        if (querySnapshot.empty) {
+        } else {
+          querySnapshot.forEach((documentSnapshot) => {
+            classes.push(documentSnapshot.data());
+          });
 
-        setAllClasses(classes);
+          setAllClasses(classes);
+        }
       })
       .catch((error) => {});
-    return () => {};
+  };
+
+  useEffect(() => {
+    getClasses();
   }, []);
 
   return (
@@ -112,6 +125,14 @@ const ClassListScreen = ({ navigation }) => {
             </View>
           </ListItem>
         )}
+        onEndReached={() => {
+          console.log("onEndReached");
+          if (lastVisibleClass !== null) {
+            console.log("onEndReached getClasses");
+            getClasses();
+          }
+        }}
+        onEndReachedThreshold={0.5}
       />
     </Container>
   );
