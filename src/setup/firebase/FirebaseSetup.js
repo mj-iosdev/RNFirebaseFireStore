@@ -14,7 +14,7 @@ if (!firebase.apps.length) {
 }
 
 /**
- * @description export Firebase and Authentication to reuse in other modules.
+ * @description export Firebase, Authentication and FireStore to reuse in other modules.
  */
 
 export { firebase, Auth, firestore };

@@ -63,6 +63,7 @@ export const editRecord = (collection, id, data) => {
  * @param id - id of the object that we want to edit.
  * @param data - data object that we want to edit.
  */
+
 export const deleteRecord = (collection, id) => {
   return new Promise(function(resolve, reject) {
     let ref = firestore()
@@ -123,7 +124,7 @@ export const getRecordAll = (collection) => {
 /**
  * @description Function to GET All record with specic query, order and pagination for a Collection from firestore.
  * @param collection - Name of the collection where we want to GET data.
- * @param queryArray - Query that will perform on perticular collection.
+ * @param queryArray - Query that will perform on perticular collection. It must have 3 parameters. ["key","operation","compare_with"]
  * @param orderBy - Order by "asc" or "desc" by perticular column.
  * @param startAfter - Used for paginations. Provide last page or document in this. Query will get data after this record
  * @param limit - Provide how many number of record in the request.
