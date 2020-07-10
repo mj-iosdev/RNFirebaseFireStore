@@ -80,6 +80,28 @@ export const deleteRecord = (collection, id) => {
 };
 
 /**
+ * @description Function to GET Single record for a Collection based on id from firestore.
+ * @param collection - Name of the collection where we want to GET data.
+ * @param id - document id of collection where we want to GET data.
+ */
+
+export const getRecord = (collection, id) => {
+  return new Promise(function(resolve, reject) {
+    let ref = firestore()
+      .collection(collection)
+      .doc(id);
+    ref
+      .get()
+      .then((snapshot) => {
+        resolve(snapshot);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+/**
  * @description Function to GET All record for a Collection from firestore.
  * @param collection - Name of the collection where we want to GET data.
  */
@@ -105,7 +127,6 @@ export const getRecordAll = (collection) => {
  * @param orderBy - Order by "asc" or "desc" by perticular column.
  * @param startAfter - Used for paginations. Provide last page or document in this. Query will get data after this record
  * @param limit - Provide how many number of record in the request.
-
  */
 
 export const getRecordWithQuery = (

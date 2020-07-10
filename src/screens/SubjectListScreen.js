@@ -57,7 +57,7 @@ const SubjectListScreen = ({ navigation }) => {
 
   const getSubjects = () => {
     console.log("getSubjects called");
-    getRecordWithQuery(SUBJECT, null, null, lastVisibleSubject, 10)
+    getRecordWithQuery(SUBJECT, null, ["class_name"], lastVisibleSubject, 10)
       .then((querySnapshot) => {
         let subjects = [...allSubjects];
 
@@ -107,7 +107,7 @@ const SubjectListScreen = ({ navigation }) => {
           <ListItem>
             <Body>
               <Text>{item.subject_name}</Text>
-              <Text note>Class :{item.class_name}</Text>
+              <Text note>Class : {item.class_name}</Text>
             </Body>
             <View
               style={{

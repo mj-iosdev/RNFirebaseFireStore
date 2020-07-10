@@ -28,6 +28,8 @@ import ClassListScreen from "./src/screens/ClassListScreen";
 import SubjectListScreen from "./src/screens/SubjectListScreen";
 import AddClassScreen from "./src/screens/AddClassScreen";
 import AddSubjectScreen from "./src/screens/AddSubjectScreen";
+import AddStudentScreen from "./src/screens/AddStudentScreen";
+import StudentDetailScreen from "./src/screens/StudentDetailScreen";
 
 const Stack = createStackNavigator();
 
@@ -80,6 +82,11 @@ const App = () => {
           />
           <Stack.Screen name="AddClassScreen" component={AddClassScreen} />
           <Stack.Screen name="AddSubjectScreen" component={AddSubjectScreen} />
+          <Stack.Screen name="AddStudentScreen" component={AddStudentScreen} />
+          <Stack.Screen
+            name="StudentDetailScreen"
+            component={StudentDetailScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
