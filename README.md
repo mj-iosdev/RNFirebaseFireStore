@@ -1,4 +1,5 @@
 # React Native Firebase FireStore Helper
+
 FireStore Helper with React Native
 
 This is a demo project with use of React Native to FireStore Helper with different methods provided by Firebase. You can ADD, UPDATE, DELETE, GET, GET with QUERY, GET with PAGINATION etc.
