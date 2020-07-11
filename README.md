@@ -6,6 +6,45 @@ This is a demo project with use of React Native to FireStore Helper with differe
 
 This project was built using [React Native Firebase](https://rnfirebase.io/).
 
+Methods supported right now
+
+**1. addRecord** : Function to add new record in firestore.
+```
+export const addRecord = (collection, data) => {
+}
+```
+**2. editRecord** : Function to edit record in firestore.
+```
+export const editRecord = (collection, id, data) => {
+}
+```
+**3. deleteRecord** : Function to Delete record permanently from firestore.
+```
+export const deleteRecord = (collection, id) => {
+}
+```
+**4. deleteRecordSoft** : Function to soft Delete record from firestore. Record will be still in the database but with value deleted = true.
+```
+export const deleteRecordSoft = (collection, id) => {
+}
+```
+**5. getRecord** : Function to GET Single record for a Collection based on id from firestore.
+```
+export const getRecord = (collection, id) => {
+}
+```
+**6. getRecordAll** : Function to GET All record for a Collection from firestore.
+```
+export const getRecordAll = (collection) => {
+}
+```
+**7. getRecordWithQuery** : Function to GET All record with specic query, order and pagination for a Collection from firestore.
+```
+export const getRecordWithQuery = (collection,queryArray: Array<Array> = null,orderBy: Array = null,startAfter = null,limit = null) => {
+}
+```
+
+
 ## How to run the demo project
 
 1. To run the project
