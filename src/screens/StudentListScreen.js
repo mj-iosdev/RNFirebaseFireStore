@@ -24,6 +24,7 @@ import {
   getRecordAll,
   deleteRecord,
   getRecordWithQuery,
+  deleteRecordSoft,
 } from "../service/FireStoreHelper";
 
 const StudentListScreen = ({ navigation }) => {
@@ -42,7 +43,7 @@ const StudentListScreen = ({ navigation }) => {
   };
 
   const deleteStudent = (selStudent) => {
-    deleteRecord(STUDENT, selStudent.id)
+    deleteRecordSoft(STUDENT, selStudent.id)
       .then(() => {
         setAllStudents(
           allStudents.filter((stud) => {
@@ -56,7 +57,13 @@ const StudentListScreen = ({ navigation }) => {
   };
 
   const getStudents = () => {
-    getRecordWithQuery(STUDENT, null, null, lastVisibleStudent, 10)
+    getRecordWithQuery(
+      STUDENT,
+      [["deleted", "==", false], ["class_name", "==", "12"]],
+      null,
+      lastVisibleStudent,
+      10
+    )
       .then((querySnapshot) => {
         let students = [...allStudents];
 
@@ -74,7 +81,9 @@ const StudentListScreen = ({ navigation }) => {
           setAllStudents(students);
         }
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {

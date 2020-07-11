@@ -81,6 +81,33 @@ export const deleteRecord = (collection, id) => {
 };
 
 /**
+ * @description Function to soft Delete record from firestore. Record will be still in the database but with value deleted = true
+ * @param collection - Name of the collection where we want to edit data.
+ * @param id - id of the object that we want to edit.
+ */
+
+export const deleteRecordSoft = (collection, id) => {
+  let data = {};
+  data.updated_at = firestore.Timestamp.now();
+  data.updated_by = Auth().currentUser.uid;
+  data.deleted = true;
+
+  return new Promise(function(resolve, reject) {
+    let ref = firestore()
+      .collection(collection)
+      .doc(id);
+    ref
+      .update(data)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+/**
  * @description Function to GET Single record for a Collection based on id from firestore.
  * @param collection - Name of the collection where we want to GET data.
  * @param id - document id of collection where we want to GET data.
@@ -124,7 +151,8 @@ export const getRecordAll = (collection) => {
 /**
  * @description Function to GET All record with specic query, order and pagination for a Collection from firestore.
  * @param collection - Name of the collection where we want to GET data.
- * @param queryArray - Query that will perform on perticular collection. It must have 3 parameters. ["key","operation","compare_with"]
+ * @param queryArray - Query that will perform on perticular collection. It contais Array or Array (Array<Array>) to have multiple queries.
+ *                     Every inner Array must have 3 parameters. ["key","operation","compare_with"]
  * @param orderBy - Order by "asc" or "desc" by perticular column.
  * @param startAfter - Used for paginations. Provide last page or document in this. Query will get data after this record
  * @param limit - Provide how many number of record in the request.
@@ -132,7 +160,7 @@ export const getRecordAll = (collection) => {
 
 export const getRecordWithQuery = (
   collection,
-  queryArray: Array = null,
+  queryArray: Array<Array> = null,
   orderBy: Array = null,
   startAfter = null,
   limit = null
@@ -141,8 +169,10 @@ export const getRecordWithQuery = (
     let ref = firestore().collection(collection);
     let queryRef = ref;
 
-    if (queryArray !== null && queryArray.length === 3) {
-      queryRef = queryRef.where(queryArray[0], queryArray[1], queryArray[2]);
+    if (queryArray !== null) {
+      queryArray.forEach((query) => {
+        queryRef = queryRef.where(query[0], query[1], query[2]);
+      });
     }
 
     if (orderBy !== null) {
@@ -163,6 +193,7 @@ export const getRecordWithQuery = (
     queryRef
       .get()
       .then((snapshot) => {
+        console.log(snapshot);
         resolve(snapshot);
       })
       .catch((error) => {

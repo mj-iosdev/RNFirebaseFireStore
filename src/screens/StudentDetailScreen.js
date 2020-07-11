@@ -33,7 +33,7 @@ const StudentDetailScreen = ({ navigation, route }) => {
 
   const getSubjects = (id) => {
     console.log("getSubjects");
-    getRecordWithQuery(SUBJECT, ["class_id", "==", id], null, null, null)
+    getRecordWithQuery(SUBJECT, [["class_id", "==", id]], null, null, null)
       .then((querySnapshot) => {
         let options = allSubject;
         if (querySnapshot.empty) {
