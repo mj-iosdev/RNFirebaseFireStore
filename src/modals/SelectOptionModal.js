@@ -90,7 +90,6 @@ const SelectOptionModal = ({
         renderItem={({ item, index }) => (
           <ListItem
             onPress={() => {
-              console.log("Select");
               onSelect(item);
             }}
           >

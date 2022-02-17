@@ -52,7 +52,6 @@ const ClassListScreen = ({ navigation }) => {
   };
 
   const getClasses = () => {
-    console.log("getClasses");
     getRecordWithQuery(CLASS, null, ["order"], lastVisibleClass, 10)
       .then((querySnapshot) => {
         classes = allClasses;

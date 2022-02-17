@@ -25,7 +25,10 @@ import {
   deleteRecord,
   getRecordWithQuery,
   deleteRecordSoft,
+  deleteInnerCollectionRecord,
+  getRecord,
 } from "../service/FireStoreHelper";
+import { TextInput } from "react-native-gesture-handler";
 
 const StudentListScreen = ({ navigation }) => {
   const [allStudents, setAllStudents] = useState([]);
@@ -43,8 +46,14 @@ const StudentListScreen = ({ navigation }) => {
   };
 
   const deleteStudent = (selStudent) => {
-    deleteRecordSoft(STUDENT, selStudent.id)
+    // Soft Delete record (not remove from firestore collection only change bool value)
+    console.log("selStudent.id", selStudent.id);
+    let data = {
+      deleted: true,
+    };
+    deleteRecordSoft(STUDENT, selStudent.id, data)
       .then(() => {
+        console.log("Succeessfull");
         setAllStudents(
           allStudents.filter((stud) => {
             return stud.id !== selStudent.id;
@@ -52,7 +61,7 @@ const StudentListScreen = ({ navigation }) => {
         );
       })
       .catch((error) => {
-        console.log(error);
+        console.log("deleteStudent", error);
       });
   };
 
@@ -81,13 +90,24 @@ const StudentListScreen = ({ navigation }) => {
           setAllStudents(students);
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((_error) => {
+        //Handle Error
+      });
+  };
+
+  const getAllStudents = () => {
+    getRecord(STUDENT)
+      .then((querySnapshot) => {
+        console.log("getAllStudents", querySnapshot);
+      })
+      .catch((_error) => {
+        // Handle Error
       });
   };
 
   useEffect(() => {
     getStudents();
+    getAllStudents();
   }, []);
 
   return (
@@ -107,7 +127,6 @@ const StudentListScreen = ({ navigation }) => {
           </Button>
         </Right>
       </Header>
-      {console.log("allStudents", allStudents.length)}
 
       <FlatList
         data={allStudents}

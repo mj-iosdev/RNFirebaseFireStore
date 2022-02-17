@@ -44,7 +44,6 @@ const App = () => {
       setIsLoading(false);
     })
     .catch((error) => {
-      console.log(error);
       setUser(null);
       setIsLoading(false);
     });

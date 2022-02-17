@@ -19,7 +19,11 @@ import {
   Icon,
   View,
 } from "native-base";
-import { addRecord, editRecord } from "../service/FireStoreHelper";
+import {
+  addCollectionRecordInDoc,
+  addRecord,
+  editRecord,
+} from "../service/FireStoreHelper";
 import SelectOptionModal from "../modals/SelectOptionModal";
 import { CLASS, STUDENT } from "../constants/index";
 
@@ -42,6 +46,7 @@ const AddStudentScreen = ({ navigation, route }) => {
           last_name: studLastName,
           class_id: selStudent.class_id,
           class_name: selStudent.class_name,
+          deleted: false,
         })
           .then((snapshot) => {
             navigation.goBack();
@@ -50,12 +55,21 @@ const AddStudentScreen = ({ navigation, route }) => {
             alert(error);
           });
       } else {
-        addRecord(STUDENT, {
+        const data = {
           first_name: studFirstName,
           last_name: studLastName,
           class_id: subClass.id,
           class_name: subClass.class_name,
-        })
+          deleted: false,
+        };
+        // addRecord(STUDENT, data)
+        //   .then((snapshot) => {
+        //     navigation.goBack();
+        //   })
+        //   .catch((error) => {
+        //     alert(error);
+        //   });
+        addCollectionRecordInDoc(data, STUDENT)
           .then((snapshot) => {
             navigation.goBack();
           })

@@ -50,13 +50,12 @@ const SubjectListScreen = ({ navigation }) => {
           })
         );
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((_error) => {
+        // Handle Error
       });
   };
 
   const getSubjects = () => {
-    console.log("getSubjects called");
     getRecordWithQuery(SUBJECT, null, ["class_name"], lastVisibleSubject, 10)
       .then((querySnapshot) => {
         let subjects = [...allSubjects];
@@ -99,7 +98,6 @@ const SubjectListScreen = ({ navigation }) => {
           </Button>
         </Right>
       </Header>
-      {console.log("allSubjects", allSubjects.length)}
 
       <FlatList
         data={allSubjects}

@@ -32,15 +32,12 @@ const StudentDetailScreen = ({ navigation, route }) => {
   const [allSubject, setAllSubject] = useState([]);
 
   const getSubjects = (id) => {
-    console.log("getSubjects");
     getRecordWithQuery(SUBJECT, [["class_id", "==", id]], null, null, null)
       .then((querySnapshot) => {
         let options = allSubject;
         if (querySnapshot.empty) {
         } else {
           querySnapshot.forEach((documentSnapshot) => {
-            console.log("options => ", documentSnapshot.data());
-
             let { id, subject_name } = documentSnapshot.data();
             options.push({ id, subject_name });
           });
